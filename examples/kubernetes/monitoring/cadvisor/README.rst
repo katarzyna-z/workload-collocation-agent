@@ -53,15 +53,14 @@ The advantage of running cAdvisor as standalone after compiling it with presente
 cAdvisor in docker container
 ============================
 
-**[WIP]**
+cAdvisor in docker container with changes required for Workload Collocation Agent can be run using following commands:
 
-Go to cAdvisor repo root directory and run
+.. code-block:: 
 
-.. code-block:: shell
+  docker build --no-cache -t intel-wca/cadvisor:beta -f Dockerfile.cadvisor .
 
-  docker build -t cadvisor -f deploy/Dockerfile .
-
-This will produce a docker image called cadvisor containing cAdvisor with perf support. Unlike normal binary build, this one does not require configured Golang environment.
+**NOTICE:** Not all required changes are now available in `google/cadvisor <https://github.com/google/cadvisor>`_ so command above builds cAdvisor image from
+`private fork <https://github.com/wacuuu/cadvisor/tree/jwalecki/even-more-magic>`_.
 
 
 Perf stats in cAdvisor output

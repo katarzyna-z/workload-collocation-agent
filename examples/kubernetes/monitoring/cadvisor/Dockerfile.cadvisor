@@ -23,9 +23,8 @@ RUN cd /etc/yum.repos.d/ && \
   yum install --enablerepo="rhel-*-optional-rpms,rhel-*-extras-rpms,rhel-ha-for-rhel-*-server-rpms" -y ndctl ndctl-libs ndctl-devel libsafec rubygem-asciidoctor && \
   yum install -y ipmctl ipmctl-devel
 
-
-ADD . /go/src/github.com/google/cadvisor
-WORKDIR /go/src/github.com/google/cadvisor
+RUN git clone --single-branch --branch jwalecki/even-more-magic https://github.com/wacuuu/cadvisor.git
+WORKDIR cadvisor
 
 ENV GOROOT /usr/local/go/
 ENV GOPATH /go
@@ -43,7 +42,7 @@ RUN apk --no-cache add libc6-compat device-mapper findutils zfs && \
 
 # Grab cadvisor and libpfm4 from "build" container.
 COPY --from=build /usr/local/lib/libpfm.so* /usr/local/lib/
-COPY --from=build /go/src/github.com/google/cadvisor/cadvisor /usr/bin/cadvisor
+COPY --from=build /cadvisor/cadvisor /usr/bin/cadvisor
 COPY --from=build /usr/share/ipmctl /usr/share/ipmctl
 
 EXPOSE 9101
