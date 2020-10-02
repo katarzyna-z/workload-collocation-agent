@@ -53,11 +53,12 @@ The advantage of running cAdvisor as standalone after compiling it with presente
 cAdvisor in docker container
 ============================
 
-cAdvisor in docker container with changes required for Workload Collocation Agent can be run using following commands:
+cAdvisor in docker image with changes required for Workload Collocation Agent can be built using following commands:
 
-.. code-block:: 
+.. code-block:: shell
 
-  docker build --no-cache -t intel-wca/cadvisor:beta -f Dockerfile.cadvisor .
+  export CADVISOR_TAG=$(git ls-remote git://github.com/wacuuu/cadvisor.git jwalecki/even-more-magic | cut -c -7)
+  docker build --no-cache -t cadvisor:$CADVISOR_TAG -f Dockerfile.cadvisor .
 
 **NOTICE:** Not all required changes are now available in `google/cadvisor <https://github.com/google/cadvisor>`_ so command above builds cAdvisor image from
 `private fork <https://github.com/wacuuu/cadvisor/tree/jwalecki/even-more-magic>`_.
@@ -105,6 +106,7 @@ Assuming that command is executed from this directory(in which ``perf-prm-skylak
 
 .. code-block:: shell
 
+  export CADVISOR_TAG=$(git ls-remote git://github.com/wacuuu/cadvisor.git jwalecki/even-more-magic | cut -c -7)
   sudo docker run \
   --volume=/:/rootfs:ro \
   --volume=/var/run:/var/run:ro \
@@ -116,7 +118,7 @@ Assuming that command is executed from this directory(in which ``perf-prm-skylak
   --device=/dev/kmsg \
   --privileged \
   --name=cadvisor \
-  cadvisor --perf_events_config=/etc/configs/perf/perf-prm-skylake.json
+  cadvisor:$CADVISOR_TAG --perf_events_config=/etc/configs/perf/perf-prm-skylake.json
 
 Important note is that it should be run on Skylake platform, as some of the metrics in mentioned json are only available on Skylake. After this, command:
 
