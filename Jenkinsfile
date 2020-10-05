@@ -112,7 +112,7 @@ pipeline {
                     when {expression{return params.BUILD_IMAGES}}
                     steps {
                     sh '''
-                    CADVISOR_REVISION=$(git ls-remote git://github.com/wacuuu/cadvisor.git jwalecki/even-more-magic | cut -c -7)
+                    CADVISOR_REVISION=$(git ls-remote git://github.com/wacuuu/cadvisor.git jwalecki/merged-features | cut -c -7)
                     IMAGE_NAME=${DOCKER_REPOSITORY_URL}/wca/cadvisor:${CADVISOR_REVISION}
                     IMAGE_DIR=${WORKSPACE}/cadvisor
 

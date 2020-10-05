@@ -27,7 +27,7 @@ RUN wget https://golang.org/dl/go1.13.14.linux-amd64.tar.gz && \
   rm -f go1.13.14.linux-amd64.tar.gz
 
 ENV PATH=$PATH::/usr/local/go/bin
-RUN git clone --single-branch --branch jwalecki/even-more-magic https://github.com/wacuuu/cadvisor.git
+RUN git clone --single-branch --branch jwalecki/merged-features https://github.com/wacuuu/cadvisor.git
 WORKDIR cadvisor
 
 ENV GOROOT /usr/local/go/
