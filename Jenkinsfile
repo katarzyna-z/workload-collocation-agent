@@ -114,8 +114,7 @@ pipeline {
                     sh '''
                     CADVISOR_REVISION=$(git ls-remote git://github.com/wacuuu/cadvisor.git jwalecki/merged-features | cut -c -7)
                     IMAGE_NAME=${DOCKER_REPOSITORY_URL}/wca/cadvisor:${CADVISOR_REVISION}
-                    IMAGE_DIR=${WORKSPACE}/cadvisor
-
+                    IMAGE_DIR=${WORKSPACE}/examples/kubernetes/monitoring/cadvisor
                     docker build --no-cache -t ${IMAGE_NAME} -f ${IMAGE_DIR}/Dockerfile.cadvisor ${IMAGE_DIR}
                     docker push ${IMAGE_NAME}
                     '''
